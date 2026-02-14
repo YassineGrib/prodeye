@@ -523,6 +523,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mediterranean'**
   String get mediterranean;
+
+  /// No description provided for @productDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Details'**
+  String get productDetails;
+
+  /// No description provided for @healthScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Score'**
+  String get healthScore;
+
+  /// No description provided for @healthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy'**
+  String get healthy;
+
+  /// No description provided for @moderate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get moderate;
+
+  /// No description provided for @unhealthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Unhealthy'**
+  String get unhealthy;
+
+  /// No description provided for @compatible.
+  ///
+  /// In en, this message translates to:
+  /// **'Compatible with you'**
+  String get compatible;
+
+  /// No description provided for @notCompatible.
+  ///
+  /// In en, this message translates to:
+  /// **'Not compatible with you'**
+  String get notCompatible;
+
+  /// No description provided for @nutritionFacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition Facts'**
+  String get nutritionFacts;
+
+  /// No description provided for @perServing.
+  ///
+  /// In en, this message translates to:
+  /// **'Per Serving'**
+  String get perServing;
+
+  /// No description provided for @per100g.
+  ///
+  /// In en, this message translates to:
+  /// **'Per 100g'**
+  String get per100g;
+
+  /// No description provided for @calories.
+  ///
+  /// In en, this message translates to:
+  /// **'Calories'**
+  String get calories;
+
+  /// No description provided for @sugar.
+  ///
+  /// In en, this message translates to:
+  /// **'Sugar'**
+  String get sugar;
+
+  /// No description provided for @fat.
+  ///
+  /// In en, this message translates to:
+  /// **'Fat'**
+  String get fat;
+
+  /// No description provided for @saturatedFat.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturated Fat'**
+  String get saturatedFat;
+
+  /// No description provided for @salt.
+  ///
+  /// In en, this message translates to:
+  /// **'Salt'**
+  String get salt;
+
+  /// No description provided for @protein.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein'**
+  String get protein;
+
+  /// No description provided for @fiber.
+  ///
+  /// In en, this message translates to:
+  /// **'Fiber'**
+  String get fiber;
+
+  /// No description provided for @ingredients.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get ingredients;
+
+  /// No description provided for @allergens.
+  ///
+  /// In en, this message translates to:
+  /// **'Allergens'**
+  String get allergens;
+
+  /// No description provided for @additives.
+  ///
+  /// In en, this message translates to:
+  /// **'Additives'**
+  String get additives;
+
+  /// No description provided for @warnings.
+  ///
+  /// In en, this message translates to:
+  /// **'Warnings'**
+  String get warnings;
+
+  /// No description provided for @addToFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Favorites'**
+  String get addToFavorites;
+
+  /// No description provided for @removeFromFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from Favorites'**
+  String get removeFromFavorites;
+
+  /// No description provided for @productNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Product Not Found'**
+  String get productNotFound;
+
+  /// No description provided for @productNotFoundDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'This product was not found in our database'**
+  String get productNotFoundDesc;
+
+  /// No description provided for @scanAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Again'**
+  String get scanAgain;
+
+  /// No description provided for @brand.
+  ///
+  /// In en, this message translates to:
+  /// **'Brand'**
+  String get brand;
+
+  /// No description provided for @barcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode'**
+  String get barcode;
+
+  /// No description provided for @dailyValue.
+  ///
+  /// In en, this message translates to:
+  /// **'of daily value'**
+  String get dailyValue;
+
+  /// No description provided for @ofDailyLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'of daily limit'**
+  String get ofDailyLimit;
 }
 
 class _AppLocalizationsDelegate

@@ -9,6 +9,10 @@ import '../../features/scan/presentation/scan_screen.dart';
 import '../../features/profile/presentation/edit_profile_screen.dart';
 import '../../features/profile/presentation/health_conditions_screen.dart';
 import '../../features/profile/presentation/lifestyle_diet_screen.dart';
+import '../../features/product/presentation/scan_result_screen.dart';
+import '../../features/product/presentation/product_details_screen.dart';
+import '../../features/product/presentation/product_not_found_screen.dart';
+import '../../features/product/models/product.dart';
 
 // Keys for Navigation
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -66,6 +70,31 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: '/profile/lifestyle',
         name: 'profile-lifestyle',
         builder: (context, state) => const LifestyleDietScreen(),
+      ),
+      // ── Product Routes ──
+      GoRoute(
+        path: '/scan-result/:barcode',
+        name: 'scan-result',
+        builder: (context, state) {
+          final barcode = state.pathParameters['barcode']!;
+          return ScanResultScreen(barcode: barcode);
+        },
+      ),
+      GoRoute(
+        path: '/product/:barcode',
+        name: 'product-details',
+        builder: (context, state) {
+          final product = state.extra as Product;
+          return ProductDetailsScreen(product: product);
+        },
+      ),
+      GoRoute(
+        path: '/product-not-found/:barcode',
+        name: 'product-not-found',
+        builder: (context, state) {
+          final barcode = state.pathParameters['barcode']!;
+          return ProductNotFoundScreen(barcode: barcode);
+        },
       ),
     ],
   );

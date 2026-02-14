@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../l10n/app_localizations.dart';
 import '../../../core/constants/app_constants.dart';
@@ -15,6 +16,22 @@ class _ScanScreenState extends State<ScanScreen> {
   final MobileScannerController controller = MobileScannerController(
     detectionSpeed: DetectionSpeed.noDuplicates,
   );
+  bool _isProcessing = false;
+
+  void _onBarcodeDetected(String barcode) {
+    if (_isProcessing) return;
+    _isProcessing = true;
+
+    // Navigate to scan result (loading → product details or not found)
+    context.pushNamed('scan-result', pathParameters: {'barcode': barcode});
+
+    // Reset after returning
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        setState(() => _isProcessing = false);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +83,12 @@ class _ScanScreenState extends State<ScanScreen> {
             onDetect: (capture) {
               final List<Barcode> barcodes = capture.barcodes;
               for (final barcode in barcodes) {
-                debugPrint('Barcode found! ${barcode.rawValue}');
-                // TODO: Handle barcode found, navigate to details
-                // context.pushNamed('product_details', pathParameters: {'id': barcode.rawValue ?? ''});
+                final value = barcode.rawValue;
+                if (value != null && value.isNotEmpty) {
+                  debugPrint('Barcode found! $value');
+                  _onBarcodeDetected(value);
+                  return; // only process first valid barcode
+                }
               }
             },
           ),
@@ -115,13 +135,16 @@ class _ScanScreenState extends State<ScanScreen> {
                   ),
                 ],
               ),
-              child: Stack(
-                children: [
-                  // Corner markers or animation could go here
-                ],
-              ),
             ),
           ),
+          // Processing indicator overlay
+          if (_isProcessing)
+            Container(
+              color: Colors.black26,
+              child: const Center(
+                child: CircularProgressIndicator(color: Colors.white),
+              ),
+            ),
           // Guide Text
           Positioned(
             bottom: 100,

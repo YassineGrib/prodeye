@@ -220,4 +220,95 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mediterranean => 'Mediterranean';
+
+  @override
+  String get productDetails => 'Product Details';
+
+  @override
+  String get healthScore => 'Health Score';
+
+  @override
+  String get healthy => 'Healthy';
+
+  @override
+  String get moderate => 'Moderate';
+
+  @override
+  String get unhealthy => 'Unhealthy';
+
+  @override
+  String get compatible => 'Compatible with you';
+
+  @override
+  String get notCompatible => 'Not compatible with you';
+
+  @override
+  String get nutritionFacts => 'Nutrition Facts';
+
+  @override
+  String get perServing => 'Per Serving';
+
+  @override
+  String get per100g => 'Per 100g';
+
+  @override
+  String get calories => 'Calories';
+
+  @override
+  String get sugar => 'Sugar';
+
+  @override
+  String get fat => 'Fat';
+
+  @override
+  String get saturatedFat => 'Saturated Fat';
+
+  @override
+  String get salt => 'Salt';
+
+  @override
+  String get protein => 'Protein';
+
+  @override
+  String get fiber => 'Fiber';
+
+  @override
+  String get ingredients => 'Ingredients';
+
+  @override
+  String get allergens => 'Allergens';
+
+  @override
+  String get additives => 'Additives';
+
+  @override
+  String get warnings => 'Warnings';
+
+  @override
+  String get addToFavorites => 'Add to Favorites';
+
+  @override
+  String get removeFromFavorites => 'Remove from Favorites';
+
+  @override
+  String get productNotFound => 'Product Not Found';
+
+  @override
+  String get productNotFoundDesc =>
+      'This product was not found in our database';
+
+  @override
+  String get scanAgain => 'Scan Again';
+
+  @override
+  String get brand => 'Brand';
+
+  @override
+  String get barcode => 'Barcode';
+
+  @override
+  String get dailyValue => 'of daily value';
+
+  @override
+  String get ofDailyLimit => 'of daily limit';
 }

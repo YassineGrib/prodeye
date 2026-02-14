@@ -18,6 +18,38 @@ class ProfileController extends AsyncNotifier<void> {
     return null;
   }
 
+  /// Save ALL profile fields in a single Firestore write
+  Future<void> saveFullProfile({
+    String? name,
+    int? age,
+    String? gender,
+    double? height,
+    double? weight,
+    List<HealthCondition>? healthConditions,
+    Lifestyle? lifestyle,
+    DietType? dietType,
+  }) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final currentProfile = await _repository.getUserProfile();
+      if (currentProfile != null) {
+        final updatedProfile = currentProfile.copyWith(
+          name: name,
+          age: age,
+          gender: gender,
+          height: height,
+          weight: weight,
+          healthConditions: healthConditions,
+          lifestyle: lifestyle,
+          dietType: dietType,
+        );
+        await _repository.updateUserProfile(updatedProfile);
+        // Refresh the stream so the profile screen updates immediately
+        ref.invalidate(userProfileProvider);
+      }
+    });
+  }
+
   Future<void> updateProfile({
     String? name,
     int? age,

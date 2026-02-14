@@ -99,7 +99,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get healthConditions => 'الحالات الصحية';
 
   @override
-  String get lifestyleDiet => 'نمط الحياة والنظام الغذائي';
+  String get lifestyleDiet => 'نمط الحياة ';
 
   @override
   String get settings => 'الإعدادات';
@@ -220,4 +220,95 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get mediterranean => 'البحر الأبيض المتوسط';
+
+  @override
+  String get productDetails => 'تفاصيل المنتج';
+
+  @override
+  String get healthScore => 'الدرجة الصحية';
+
+  @override
+  String get healthy => 'صحي';
+
+  @override
+  String get moderate => 'متوسط';
+
+  @override
+  String get unhealthy => 'غير صحي';
+
+  @override
+  String get compatible => 'متوافق معك';
+
+  @override
+  String get notCompatible => 'غير متوافق معك';
+
+  @override
+  String get nutritionFacts => 'القيم الغذائية';
+
+  @override
+  String get perServing => 'لكل حصة';
+
+  @override
+  String get per100g => 'لكل 100 غرام';
+
+  @override
+  String get calories => 'السعرات الحرارية';
+
+  @override
+  String get sugar => 'السكر';
+
+  @override
+  String get fat => 'الدهون';
+
+  @override
+  String get saturatedFat => 'الدهون المشبعة';
+
+  @override
+  String get salt => 'الملح';
+
+  @override
+  String get protein => 'البروتين';
+
+  @override
+  String get fiber => 'الألياف';
+
+  @override
+  String get ingredients => 'المكونات';
+
+  @override
+  String get allergens => 'مسببات الحساسية';
+
+  @override
+  String get additives => 'المواد المضافة';
+
+  @override
+  String get warnings => 'تحذيرات';
+
+  @override
+  String get addToFavorites => 'إضافة للمفضلة';
+
+  @override
+  String get removeFromFavorites => 'إزالة من المفضلة';
+
+  @override
+  String get productNotFound => 'المنتج غير موجود';
+
+  @override
+  String get productNotFoundDesc =>
+      'لم يتم العثور على هذا المنتج في قاعدة البيانات';
+
+  @override
+  String get scanAgain => 'مسح مرة أخرى';
+
+  @override
+  String get brand => 'العلامة التجارية';
+
+  @override
+  String get barcode => 'الباركود';
+
+  @override
+  String get dailyValue => 'من القيمة اليومية';
+
+  @override
+  String get ofDailyLimit => 'من الحد اليومي';
 }
