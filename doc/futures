@@ -1,0 +1,23 @@
+
+🚀 What's Next?
+Based on the PRD, here are the recommended next steps in priority order:
+
+1. 🔍 Test the Full Scan Flow
+Open the app → tap Scan → scan your Ifri Water bottle (6130093010045)
+You should see: loading → product details with health score, nutrition facts, compatibility
+2. ⭐ Favorites Feature (PRD Core Feature)
+Add ability to save/unsave products to a user's favorites collection in Firestore
+Create a Favorites screen accessible from the Home tab
+Wire up the heart button on the Product Details screen
+3. 🏠 Home Screen Enhancement (PRD Core Feature)
+Replace placeholder product cards with real data from Firestore (recently scanned products)
+Show personalized product recommendations
+Wire up the search bar to search products by name
+4. 📜 Scan History (PRD Core Feature)
+Track scanned products per user in Firestore
+Show scan history on the Home tab
+Allow re-viewing past scan results
+5. 🏢 Companies Feature (PRD Core Feature)
+Company profiles with their products list
+Link from product details to the company page
+Which feature would you like to tackle next?

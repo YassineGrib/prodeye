@@ -703,6 +703,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'of daily limit'**
   String get ofDailyLimit;
+
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get welcomeBack;
+
+  /// No description provided for @welcomeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover what you eat and protect your health 🌿'**
+  String get welcomeMessage;
+
+  /// No description provided for @scanProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Product'**
+  String get scanProduct;
+
+  /// No description provided for @searchProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Product'**
+  String get searchProduct;
+
+  /// No description provided for @myFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get myFavorites;
+
+  /// No description provided for @scanHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan History'**
+  String get scanHistory;
+
+  /// No description provided for @quickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// No description provided for @healthTips.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Tips'**
+  String get healthTips;
+
+  /// No description provided for @tip1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Always Read Labels'**
+  String get tip1Title;
+
+  /// No description provided for @tip1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Check ingredients and additives before buying'**
+  String get tip1Desc;
+
+  /// No description provided for @tip2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduce Added Sugar'**
+  String get tip2Title;
+
+  /// No description provided for @tip2Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Consume less than 25g of added sugar daily'**
+  String get tip2Desc;
+
+  /// No description provided for @tip3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Your Salt'**
+  String get tip3Title;
+
+  /// No description provided for @tip3Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'The recommended daily limit is only 5 grams'**
+  String get tip3Desc;
+
+  /// No description provided for @dailyInsight.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Insight'**
+  String get dailyInsight;
+
+  /// No description provided for @insightText.
+  ///
+  /// In en, this message translates to:
+  /// **'80% of processed products contain hidden sugar. Use ProdEye to detect them!'**
+  String get insightText;
+
+  /// No description provided for @popularProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular Products'**
+  String get popularProducts;
+
+  /// No description provided for @completeProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Your Profile'**
+  String get completeProfile;
+
+  /// No description provided for @completeProfileDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your health data for a personalized assessment'**
+  String get completeProfileDesc;
+
+  /// No description provided for @productsScanned.
+  ///
+  /// In en, this message translates to:
+  /// **'products scanned'**
+  String get productsScanned;
+
+  /// No description provided for @yourHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Health'**
+  String get yourHealth;
 }
 
 class _AppLocalizationsDelegate

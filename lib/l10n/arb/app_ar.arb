@@ -103,5 +103,27 @@
   "brand": "العلامة التجارية",
   "barcode": "الباركود",
   "dailyValue": "من القيمة اليومية",
-  "ofDailyLimit": "من الحد اليومي"
+  "ofDailyLimit": "من الحد اليومي",
+
+  "welcomeBack": "مرحباً بعودتك",
+  "welcomeMessage": "اكتشف ما تأكله واحمي صحتك 🌿",
+  "scanProduct": "امسح منتج",
+  "searchProduct": "ابحث عن منتج",
+  "myFavorites": "المفضلة",
+  "scanHistory": "سجل المسح",
+  "quickActions": "إجراءات سريعة",
+  "healthTips": "نصائح صحية",
+  "tip1Title": "اقرأ الملصقات دائماً",
+  "tip1Desc": "تحقق من المكونات والمواد المضافة قبل الشراء",
+  "tip2Title": "قلل السكر المضاف",
+  "tip2Desc": "تناول أقل من 25 غرام سكر مضاف يومياً",
+  "tip3Title": "انتبه للملح",
+  "tip3Desc": "الحد اليومي الموصى به هو 5 غرام فقط",
+  "dailyInsight": "معلومة اليوم",
+  "insightText": "80% من المنتجات المصنعة تحتوي على سكر مخفي. استخدم ProdEye للكشف عنها!",
+  "popularProducts": "منتجات شائعة",
+  "completeProfile": "أكمل ملفك الشخصي",
+  "completeProfileDesc": "أضف بياناتك الصحية للحصول على تقييم مخصص",
+  "productsScanned": "منتج تم مسحه",
+  "yourHealth": "صحتك"
 }

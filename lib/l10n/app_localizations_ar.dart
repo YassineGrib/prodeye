@@ -311,4 +311,68 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get ofDailyLimit => 'من الحد اليومي';
+
+  @override
+  String get welcomeBack => 'مرحباً بعودتك';
+
+  @override
+  String get welcomeMessage => 'اكتشف ما تأكله واحمي صحتك 🌿';
+
+  @override
+  String get scanProduct => 'امسح منتج';
+
+  @override
+  String get searchProduct => 'ابحث عن منتج';
+
+  @override
+  String get myFavorites => 'المفضلة';
+
+  @override
+  String get scanHistory => 'سجل المسح';
+
+  @override
+  String get quickActions => 'إجراءات سريعة';
+
+  @override
+  String get healthTips => 'نصائح صحية';
+
+  @override
+  String get tip1Title => 'اقرأ الملصقات دائماً';
+
+  @override
+  String get tip1Desc => 'تحقق من المكونات والمواد المضافة قبل الشراء';
+
+  @override
+  String get tip2Title => 'قلل السكر المضاف';
+
+  @override
+  String get tip2Desc => 'تناول أقل من 25 غرام سكر مضاف يومياً';
+
+  @override
+  String get tip3Title => 'انتبه للملح';
+
+  @override
+  String get tip3Desc => 'الحد اليومي الموصى به هو 5 غرام فقط';
+
+  @override
+  String get dailyInsight => 'معلومة اليوم';
+
+  @override
+  String get insightText =>
+      '80% من المنتجات المصنعة تحتوي على سكر مخفي. استخدم ProdEye للكشف عنها!';
+
+  @override
+  String get popularProducts => 'منتجات شائعة';
+
+  @override
+  String get completeProfile => 'أكمل ملفك الشخصي';
+
+  @override
+  String get completeProfileDesc => 'أضف بياناتك الصحية للحصول على تقييم مخصص';
+
+  @override
+  String get productsScanned => 'منتج تم مسحه';
+
+  @override
+  String get yourHealth => 'صحتك';
 }

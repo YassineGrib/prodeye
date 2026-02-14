@@ -311,4 +311,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ofDailyLimit => 'of daily limit';
+
+  @override
+  String get welcomeBack => 'Welcome back';
+
+  @override
+  String get welcomeMessage =>
+      'Discover what you eat and protect your health 🌿';
+
+  @override
+  String get scanProduct => 'Scan Product';
+
+  @override
+  String get searchProduct => 'Search Product';
+
+  @override
+  String get myFavorites => 'Favorites';
+
+  @override
+  String get scanHistory => 'Scan History';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get healthTips => 'Health Tips';
+
+  @override
+  String get tip1Title => 'Always Read Labels';
+
+  @override
+  String get tip1Desc => 'Check ingredients and additives before buying';
+
+  @override
+  String get tip2Title => 'Reduce Added Sugar';
+
+  @override
+  String get tip2Desc => 'Consume less than 25g of added sugar daily';
+
+  @override
+  String get tip3Title => 'Watch Your Salt';
+
+  @override
+  String get tip3Desc => 'The recommended daily limit is only 5 grams';
+
+  @override
+  String get dailyInsight => 'Daily Insight';
+
+  @override
+  String get insightText =>
+      '80% of processed products contain hidden sugar. Use ProdEye to detect them!';
+
+  @override
+  String get popularProducts => 'Popular Products';
+
+  @override
+  String get completeProfile => 'Complete Your Profile';
+
+  @override
+  String get completeProfileDesc =>
+      'Add your health data for a personalized assessment';
+
+  @override
+  String get productsScanned => 'products scanned';
+
+  @override
+  String get yourHealth => 'Your Health';
 }

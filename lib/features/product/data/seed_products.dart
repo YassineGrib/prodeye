@@ -57,7 +57,7 @@ class SeedProducts {
     },
     // ──── Ifri Water ────
     {
-      'barcode': '6110001010010',
+      'barcode': '6130093010045',
       'name': 'Ifri Natural Mineral Water',
       'nameAr': 'مياه إيفري المعدنية الطبيعية',
       'brand': 'Ifri',
