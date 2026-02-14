@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "730492801556",
+    "project_id": "prodeye-app-yassine",
+    "storage_bucket": "prodeye-app-yassine.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730492801556:android:b7e8251b3f06ef473ecd01",
+        "android_client_info": {
+          "package_name": "com.example.prodeye"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJv-AKLAUGBVJiYnt_683s5vwWEfWTQsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
