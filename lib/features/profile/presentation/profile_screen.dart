@@ -39,7 +39,7 @@ class ProfileScreen extends ConsumerWidget {
                     onPressed: () async {
                       final repo = ref.read(profileRepositoryProvider);
                       await repo.createProfileIfNew();
-                      ref.refresh(userProfileProvider);
+                      ref.invalidate(userProfileProvider);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: theme.colorScheme.primary,
@@ -334,16 +334,10 @@ class ProfileScreen extends ConsumerWidget {
 
               // ── Personal Info Section Title ──
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    l10n.personalInfo,
-                    style: GoogleFonts.tajawal(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade800,
-                    ),
-                  ),
+                child: _SectionTitle(
+                  icon: Icons.person_rounded,
+                  iconColor: const Color(0xFF3B82F6),
+                  title: l10n.personalInfo,
                 ),
               ),
 
@@ -360,6 +354,7 @@ class ProfileScreen extends ConsumerWidget {
                         : profile.gender == 'Female'
                         ? l10n.female
                         : '--',
+                    color: Colors.blue,
                   ),
                   _InfoListItem(
                     icon: Icons.straighten_rounded,
@@ -367,11 +362,13 @@ class ProfileScreen extends ConsumerWidget {
                     value: profile.height != null
                         ? '${profile.height!.toStringAsFixed(0)} ${l10n.cm}'
                         : '--',
+                    color: Colors.orange,
                   ),
                   _InfoListItem(
                     icon: Icons.directions_run_rounded,
                     label: l10n.lifestyleDiet,
                     value: '$lifestyleLabel · $dietLabel',
+                    color: Colors.purple,
                   ),
                   _InfoListItem(
                     icon: Icons.favorite_border_rounded,
@@ -379,6 +376,7 @@ class ProfileScreen extends ConsumerWidget {
                     value: healthLabels.isNotEmpty
                         ? healthLabels.join('، ')
                         : l10n.none,
+                    color: Colors.red,
                     isLast: true,
                   ),
                 ]),
@@ -388,16 +386,11 @@ class ProfileScreen extends ConsumerWidget {
 
               // ── Settings Title ──
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'الإعدادات والدعم',
-                    style: GoogleFonts.tajawal(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade800,
-                    ),
-                  ),
+                child: _SectionTitle(
+                  icon: Icons.settings_rounded,
+                  iconColor: const Color(0xFF6B7280),
+                  title:
+                      'الإعدادات والدعم', // Should be l10n.settings in a real app
                 ),
               ),
 
@@ -425,22 +418,27 @@ class ProfileScreen extends ConsumerWidget {
                           icon: Icons.language_rounded,
                           title: l10n.language,
                           iconColor: Colors.blue,
+                          onTap:
+                              () {}, // Language switcher handled separately or here if needed
                         ),
                         _SettingsTile(
                           icon: Icons.notifications_none_rounded,
                           title: l10n.notifications,
                           iconColor: Colors.amber,
+                          onTap: () {},
                         ),
                         _SettingsTile(
                           icon: Icons.help_outline_rounded,
                           title: l10n.helpSupport,
                           iconColor: Colors.teal,
+                          onTap: () => context.pushNamed('help-support'),
                         ),
                         _SettingsTile(
                           icon: Icons.description_outlined,
                           title: l10n.termsConditions,
                           iconColor: Colors.grey,
                           showDivider: false,
+                          onTap: () => context.pushNamed('terms-conditions'),
                         ),
                       ],
                     ),
@@ -526,6 +524,41 @@ class ProfileScreen extends ConsumerWidget {
 // Helper Widgets
 // ─────────────────────────────────────────────────
 
+class _SectionTitle extends StatelessWidget {
+  final IconData icon;
+  final Color iconColor;
+  final String title;
+
+  const _SectionTitle({
+    required this.icon,
+    required this.iconColor,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+      child: Row(
+        children: [
+          Icon(icon, color: iconColor, size: 20),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              title,
+              style: GoogleFonts.tajawal(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade800,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _StatCard extends StatelessWidget {
   final IconData icon;
   final String value;
@@ -590,53 +623,65 @@ class _InfoListItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
+  final Color color;
   final bool isLast;
 
   const _InfoListItem({
     required this.icon,
     required this.label,
     required this.value,
+    required this.color,
     this.isLast = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 6,
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 10,
             offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: Colors.grey.shade400),
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, size: 20, color: color),
+          ),
           const SizedBox(width: 14),
-          Expanded(
-            child: Text(
-              label,
-              style: GoogleFonts.tajawal(
-                fontSize: 14,
-                color: Colors.grey.shade600,
-              ),
+          Text(
+            label,
+            style: GoogleFonts.tajawal(
+              fontSize: 13,
+              color: Colors.grey.shade600,
+              fontWeight: FontWeight.w600,
             ),
           ),
-          Text(
-            value,
-            style: GoogleFonts.tajawal(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+          const Spacer(),
+          Flexible(
+            child: Text(
+              value,
+              style: GoogleFonts.tajawal(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade800,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.end,
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
@@ -649,12 +694,14 @@ class _SettingsTile extends StatelessWidget {
   final String title;
   final Color iconColor;
   final bool showDivider;
+  final VoidCallback? onTap;
 
   const _SettingsTile({
     required this.icon,
     required this.title,
     required this.iconColor,
     this.showDivider = true,
+    this.onTap,
   });
 
   @override
@@ -684,7 +731,7 @@ class _SettingsTile extends StatelessWidget {
             size: 20,
             color: Colors.grey.shade400,
           ),
-          onTap: () {},
+          onTap: onTap,
         ),
         if (showDivider)
           Divider(height: 1, indent: 60, color: Colors.grey.shade100),

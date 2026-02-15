@@ -3,8 +3,19 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      match /history/{historyItem} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      match /favorites/{favoriteItem} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
     }
     match /products/{productId} {
+      allow read: if request.auth != null;
+      allow write: if false; // admin only via console/seed
+    }
+    match /companies/{companyId} {
       allow read: if request.auth != null;
       allow write: if false; // admin only via console/seed
     }

@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../data/product_repository.dart';
 import '../models/product.dart';
+import '../../profile/data/profile_repository.dart';
+import '../../history/data/history_repository.dart';
+import '../data/health_score_engine.dart';
 
 /// Provider to look up a product by barcode
 final productByBarcodeProvider = FutureProvider.family<Product?, String>((
@@ -41,6 +44,30 @@ class _ScanResultScreenState extends ConsumerState<ScanResultScreen> {
       if (!mounted) return;
 
       if (product != null) {
+        // Calculate health score if possible
+        // We need user profile for this. Fetch it once.
+        final profile = await ref.read(userProfileProvider.future);
+        double? score;
+        if (profile != null) {
+          final result = HealthScoreEngine.calculate(
+            product: product,
+            user: profile,
+          );
+          score = result.score;
+        }
+
+        // Add to history
+        // Add to history (non-blocking)
+        try {
+          await ref
+              .read(historyRepositoryProvider)
+              .addToHistory(product, healthScore: score);
+        } catch (e) {
+          debugPrint('Error adding to history: $e');
+        }
+
+        if (!mounted) return;
+
         // Navigate to product details, replacing this screen
         context.pushReplacementNamed(
           'product-details',

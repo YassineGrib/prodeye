@@ -12,7 +12,13 @@ import '../../features/profile/presentation/lifestyle_diet_screen.dart';
 import '../../features/product/presentation/scan_result_screen.dart';
 import '../../features/product/presentation/product_details_screen.dart';
 import '../../features/product/presentation/product_not_found_screen.dart';
+import '../../features/companies/presentation/company_details_screen.dart';
 import '../../features/product/models/product.dart';
+import '../../features/history/presentation/scan_history_screen.dart';
+import '../../features/settings/presentation/help_support_screen.dart';
+import '../../features/settings/presentation/terms_conditions_screen.dart';
+import '../../features/favorites/presentation/favorites_screen.dart';
+import '../../features/search/presentation/search_screen.dart';
 
 // Keys for Navigation
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -95,6 +101,39 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           final barcode = state.pathParameters['barcode']!;
           return ProductNotFoundScreen(barcode: barcode);
         },
+      ),
+      GoRoute(
+        path: '/scan-history',
+        name: 'scan-history',
+        builder: (context, state) => const ScanHistoryScreen(),
+      ),
+      GoRoute(
+        path: '/company/:id',
+        name: 'company-details',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return CompanyDetailsScreen(companyId: id);
+        },
+      ),
+      GoRoute(
+        path: '/favorites',
+        name: 'favorites',
+        builder: (context, state) => const FavoritesScreen(),
+      ),
+      GoRoute(
+        path: '/settings/help',
+        name: 'help-support',
+        builder: (context, state) => const HelpSupportScreen(),
+      ),
+      GoRoute(
+        path: '/settings/terms',
+        name: 'terms-conditions',
+        builder: (context, state) => const TermsConditionsScreen(),
+      ),
+      GoRoute(
+        path: '/search',
+        name: 'search',
+        builder: (context, state) => const SearchScreen(),
       ),
     ],
   );

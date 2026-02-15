@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../../core/constants/app_constants.dart';
 
 import '../../../l10n/app_localizations.dart';
@@ -18,7 +19,35 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final _storage = const FlutterSecureStorage();
+
   bool _obscurePassword = true;
+  bool _rememberMe = false;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedCredentials();
+  }
+
+  Future<void> _loadSavedCredentials() async {
+    try {
+      final email = await _storage.read(key: 'email');
+      final password = await _storage.read(key: 'password');
+      final rememberMe = await _storage.read(key: 'rememberMe');
+
+      if (rememberMe == 'true' && email != null && password != null) {
+        setState(() {
+          _emailController.text = email;
+          _passwordController.text = password;
+          _rememberMe = true;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error loading credentials: $e');
+    }
+  }
 
   @override
   void dispose() {
@@ -29,11 +58,33 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _onLogin() async {
     if (_formKey.currentState!.validate()) {
+      setState(() => _isLoading = true);
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text,
         );
+
+        try {
+          if (_rememberMe) {
+            await _storage.write(
+              key: 'email',
+              value: _emailController.text.trim(),
+            );
+            await _storage.write(
+              key: 'password',
+              value: _passwordController.text,
+            );
+            await _storage.write(key: 'rememberMe', value: 'true');
+          } else {
+            await _storage.delete(key: 'email');
+            await _storage.delete(key: 'password');
+            await _storage.delete(key: 'rememberMe');
+          }
+        } catch (e) {
+          debugPrint('Error saving credentials (non-fatal): $e');
+        }
+
         if (mounted) context.goNamed('home');
       } on FirebaseAuthException catch (e) {
         if (mounted) {
@@ -47,6 +98,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
         }
+      } finally {
+        if (mounted) setState(() => _isLoading = false);
       }
     }
   }
@@ -144,68 +197,66 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
 
-                // Forgot Password
-                Align(
-                  alignment: Alignment.centerLeft, // RTL Aware
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(l10n.forgotPassword),
-                  ),
+                const SizedBox(height: 12),
+
+                // Remember Me & Forgot Password
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _rememberMe,
+                          activeColor: AppColors.primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              _rememberMe = value ?? false;
+                            });
+                          },
+                        ),
+                        Text(
+                          l10n.rememberMe,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(l10n.forgotPassword),
+                    ),
+                  ],
                 ),
+
                 const SizedBox(height: 24),
 
                 // Login Button
                 SizedBox(
                   height: 56, // Touch-first height
                   child: ElevatedButton(
-                    onPressed: _onLogin,
+                    onPressed: _isLoading ? null : _onLogin,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      elevation: 4,
-                      shadowColor: AppColors.primary.withOpacity(0.4),
+                      elevation: 0, // Flat design
                     ),
-                    child: Text(
-                      l10n.login,
-                      style: GoogleFonts.cairo(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: _isLoading
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : Text(
+                            l10n.login,
+                            style: GoogleFonts.tajawal(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
                   ),
                 ),
                 const SizedBox(height: 24),
-
-                // Social Login Placeholder
-                Row(
-                  children: [
-                    Expanded(child: Divider(color: Colors.grey[300])),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        l10n.continueWith,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ),
-                    Expanded(child: Divider(color: Colors.grey[300])),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _SocialButton(
-                      icon: Icons.g_mobiledata,
-                      onTap: () {},
-                    ), // Replace with asset later
-                    const SizedBox(width: 16),
-                    _SocialButton(icon: Icons.apple, onTap: () {}),
-                  ],
-                ),
-                const SizedBox(height: 48),
 
                 // Register Link
                 Row(
@@ -228,30 +279,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _SocialButton extends StatelessWidget {
-  final IconData icon; // In real app, use SvgPicture
-  final VoidCallback onTap;
-
-  const _SocialButton({required this.icon, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey[300]!),
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.white,
-        ),
-        child: Icon(icon, size: 32, color: Colors.black),
       ),
     );
   }

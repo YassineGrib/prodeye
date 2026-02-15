@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/profile_repository.dart';
-import '../models/user_profile.dart';
+
 import '../models/health_condition.dart';
 import '../models/lifestyle.dart';
 import '../models/diet_type.dart';

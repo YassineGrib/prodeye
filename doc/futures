@@ -1,23 +1,54 @@
+✅ Completed Features
+Authentication: Login, Register, Logout, Guest access.
+Profile: Personal info, Health conditions, Lifestyle, Diet type.
+Scanning: Barcode scanning, Product lookups, Health Score calculation, Personalized compatibility checks.
+Product Details: Nutrition, Additives, Warnings.
+Favorites (Products): Saving/removing products, Favorites screen.
+Companies: List, Search, Details, Seeder for Algerian companies.
+History: Recent scans list.
+⏳ Missing or Incomplete (Required for MVP)
+According to Section 3.6 and 3.7 of the PRD, there is one key missing piece:
 
-🚀 What's Next?
-Based on the PRD, here are the recommended next steps in priority order:
+Favorite Companies:
+Requirement: Users should be able to save Companies to their favorites, not just products.
+Action: We need to add a heart icon to the CompanyDetailsScreen and a "Companies" tab (or filter) in the 
+FavoritesScreen
+.
+🔧 recommended Polish & Refinements
+These are implemented but could be aligned closer to the specific PRD details:
 
-1. 🔍 Test the Full Scan Flow
-Open the app → tap Scan → scan your Ifri Water bottle (6130093010045)
-You should see: loading → product details with health score, nutrition facts, compatibility
-2. ⭐ Favorites Feature (PRD Core Feature)
-Add ability to save/unsave products to a user's favorites collection in Firestore
-Create a Favorites screen accessible from the Home tab
-Wire up the heart button on the Product Details screen
-3. 🏠 Home Screen Enhancement (PRD Core Feature)
-Replace placeholder product cards with real data from Firestore (recently scanned products)
-Show personalized product recommendations
-Wire up the search bar to search products by name
-4. 📜 Scan History (PRD Core Feature)
-Track scanned products per user in Firestore
-Show scan history on the Home tab
-Allow re-viewing past scan results
-5. 🏢 Companies Feature (PRD Core Feature)
-Company profiles with their products list
-Link from product details to the company page
-Which feature would you like to tackle next?
+Company Ratings Breakdown (Section 3.7):
+Requirement: Ratings should include specific metrics: Health, Taste, Quality, Price.
+Current State: We have a generic ratings map, but the UI might need to display these specific categories clearly if we have the data.
+Global Search (Section 3.9):
+Requirement: "User can search Products and Companies".
+Current State: We have separate searches.
+Action: Consider making the Home search bar able to find Companies too (or keep them separate if that fits your UX better).
+Healthy Alternatives (Section 3.8):
+Requirement: "Discover healthier alternatives".
+Current State: The UI exists on the Home screen ("Healthy Alternatives" section), but we should ensure it displays meaningful data (e.g., highly-rated products).
+🚀 Next Step Recommendation
+I recommend we tackle Favorite Companies next to complete the core "Favorites" scope defined in the PRD.
+
+Shall I implement Company Favorites now?
+
+
+
++++++++++++++++++
+I have implemented the missing MVP features: Favorite Companies, Detailed Company Ratings, and Global Search.
+
+Changes Overview:
+Favorite Companies:
+Updated FavoriteItem and FavoritesRepository to support both products and companies.
+Added a "Heart" icon to CompanyDetailsScreen.
+Updated FavoritesScreen with Tabs for "Products" and "Companies".
+Detailed Company Ratings:
+Updated CompanySeeder with health, taste, quality, price ratings.
+Added a detailed scorecard to CompanyDetailsScreen.
+Added localization keys to app_ar.arb and app_en.arb.
+Global Search:
+Created SearchScreen with unified search for Products and Companies.
+Wired up the Home screen search bar and Quick Action to navigation to /search.
+Note: If you encounter errors like ratingHealth not defined, please run flutter gen-l10n or restart the app to regenerate localization files.
+
+Please review the Walkthrough for verification steps.

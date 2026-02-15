@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../profile/data/profile_repository.dart';
+import '../../history/data/history_repository.dart';
+import '../../history/models/scan_history_item.dart';
 
 class HomeTab extends ConsumerWidget {
   const HomeTab({super.key});
@@ -59,8 +61,11 @@ class HomeTab extends ConsumerWidget {
           // ── 6. Health Tips (compact) ──
           SliverToBoxAdapter(child: _HealthTipsSection(l10n: l10n)),
 
-          // ── 7. Popular Products ──
+          // ── 8. Popular Products ──
           SliverToBoxAdapter(child: _PopularProductsSection(l10n: l10n)),
+
+          // ── 7. Recent Scans ──
+          SliverToBoxAdapter(child: _RecentScansSection(l10n: l10n)),
 
           const SliverToBoxAdapter(child: SizedBox(height: 30)),
         ],
@@ -89,16 +94,29 @@ class _WelcomeHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
+      decoration: BoxDecoration(
+        color: const Color(0xFF059669),
+        image: const DecorationImage(
+          image: AssetImage('assets/img/pattern.png'),
+          fit: BoxFit.cover,
+          opacity: 0.15, // Subtle overlay
+        ),
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [Color(0xFF059669), Color(0xFF047857), Color(0xFF065F46)],
         ),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(28),
           bottomRight: Radius.circular(28),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF059669).withValues(alpha: 0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: SafeArea(
         bottom: false,
@@ -187,50 +205,75 @@ class _SearchBarSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 0),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.black.withValues(alpha: 0.06),
-          //     blurRadius: 10,
-          //     offset: const Offset(0, 2),
-          //   ),
-          // ],
-        ),
-        child: Row(
-          children: [
-            Icon(Icons.search_rounded, color: Colors.grey.shade400, size: 22),
-            const SizedBox(width: 10),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: l10n.searchHint,
-                  hintStyle: GoogleFonts.tajawal(
-                    fontSize: 14,
-                    color: Colors.grey.shade400,
-                  ),
-                  border: InputBorder.none,
-                  isDense: true,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                ),
-              ),
-            ),
-            Container(width: 1, height: 24, color: Colors.grey.shade200),
-            const SizedBox(width: 8),
-            GestureDetector(
-              onTap: () => context.push('/scan'),
-              child: Padding(
-                padding: const EdgeInsets.all(6),
-                child: Icon(
-                  Icons.qr_code_scanner_rounded,
-                  color: AppColors.primary,
-                  size: 22,
-                ),
-              ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
           ],
+        ),
+        child: TextField(
+          readOnly: true,
+          onTap: () => context.push('/search'),
+          textAlignVertical: TextAlignVertical.center,
+          decoration: InputDecoration(
+            isDense: true,
+            hintText: l10n.searchHint,
+            hintStyle: GoogleFonts.tajawal(
+              fontSize: 14,
+              color: Colors.grey.shade400,
+            ),
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(
+                color: Color(0xFF059669),
+                width: 1.5,
+              ),
+            ),
+            contentPadding: const EdgeInsets.symmetric(vertical: 12),
+            // Loop/Search Icon as Prefix
+            prefixIconConstraints: const BoxConstraints(minWidth: 48),
+            prefixIcon: Icon(
+              Icons.search_rounded,
+              color: Colors.grey.shade400,
+              size: 24,
+            ),
+            // Scan Icon as Suffix with divider
+            suffixIconConstraints: const BoxConstraints(minWidth: 50),
+            suffixIcon: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(width: 1, height: 24, color: Colors.grey.shade200),
+                IconButton(
+                  icon: Icon(
+                    Icons.qr_code_scanner_rounded,
+                    color: AppColors.primary,
+                    size: 22,
+                  ),
+                  onPressed: () => context.push('/scan'),
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(
+                    minWidth: 44,
+                    minHeight: 44,
+                  ),
+                ),
+                const SizedBox(width: 4),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -257,19 +300,19 @@ class _QuickActionsRow extends StatelessWidget {
         Icons.search_rounded,
         l10n.searchProduct,
         const Color(0xFF3B82F6),
-        () {},
+        () => context.push('/search'),
       ),
       _QAction(
         Icons.favorite_rounded,
         l10n.myFavorites,
         const Color(0xFFEF4444),
-        () {},
+        () => context.pushNamed('favorites'),
       ),
       _QAction(
         Icons.history_rounded,
         l10n.scanHistory,
         const Color(0xFFD97706),
-        () {},
+        () => context.pushNamed('scan-history'),
       ),
     ];
 
@@ -638,7 +681,176 @@ class _TipData {
 }
 
 // ─────────────────────────────────────────────────
-// 7. Popular Products
+// 7. Recent Scans
+// ─────────────────────────────────────────────────
+class _RecentScansSection extends ConsumerWidget {
+  final AppLocalizations l10n;
+  const _RecentScansSection({required this.l10n});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final recentScansAsync = ref.watch(recentScansProvider);
+
+    return recentScansAsync.when(
+      data: (scans) {
+        if (scans.isEmpty) return const SizedBox.shrink();
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _SectionTitle(
+              icon: Icons.history_rounded,
+              iconColor: const Color(0xFF3B82F6),
+              title: l10n.recentScans,
+              // onViewAll: () {}, // Can be enabled if history page exists
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: scans.map((scan) {
+                  return _ScanHistoryCard(scan: scan);
+                }).toList(),
+              ),
+            ),
+          ],
+        );
+      },
+      loading: () => const SizedBox.shrink(),
+      error: (e, st) => const SizedBox.shrink(),
+    );
+  }
+}
+
+class _ScanHistoryCard extends StatelessWidget {
+  final ScanHistoryItem scan;
+  const _ScanHistoryCard({required this.scan});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context.pushNamed(
+          'scan-result',
+          pathParameters: {'barcode': scan.barcode},
+        );
+      },
+      child: Container(
+        width: 140,
+        margin: const EdgeInsetsDirectional.only(end: 12),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Product Image
+            Container(
+              height: 100,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade50,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: scan.imageUrl != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        scan.imageUrl!,
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) => Icon(
+                          Icons.image_not_supported_outlined,
+                          color: Colors.grey.shade300,
+                          size: 30,
+                        ),
+                      ),
+                    )
+                  : Icon(
+                      Icons.qr_code_2,
+                      size: 32,
+                      color: Colors.grey.shade300,
+                    ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              scan.productName.isNotEmpty ? scan.productName : scan.barcode,
+              style: GoogleFonts.tajawal(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade800,
+                height: 1.2,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            if (scan.brand.isNotEmpty) ...[
+              const SizedBox(height: 2),
+              Text(
+                scan.brand,
+                style: GoogleFonts.tajawal(
+                  fontSize: 10,
+                  color: Colors.grey.shade500,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+            if (scan.healthScore != null) ...[
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                decoration: BoxDecoration(
+                  color: _scoreColor(
+                    scan.healthScore!.round(),
+                  ).withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      size: 6,
+                      color: _scoreColor(scan.healthScore!.round()),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      '${scan.healthScore!.round()}',
+                      style: GoogleFonts.tajawal(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: _scoreColor(scan.healthScore!.round()),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Color _scoreColor(int score) {
+    if (score >= 80) return Colors.green;
+    if (score >= 50) return Colors.orange;
+    return Colors.red;
+  }
+}
+
+// ─────────────────────────────────────────────────
+// 8. Popular Products
 // ─────────────────────────────────────────────────
 class _PopularProductsSection extends StatelessWidget {
   final AppLocalizations l10n;

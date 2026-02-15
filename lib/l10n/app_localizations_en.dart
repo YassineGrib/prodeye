@@ -377,4 +377,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get yourHealth => 'Your Health';
+
+  @override
+  String get noHistory => 'No scan history yet';
+
+  @override
+  String get companyDetails => 'Company Details';
+
+  @override
+  String get aboutCompany => 'About Company';
+
+  @override
+  String get companyProducts => 'Company Products';
+
+  @override
+  String get visitWebsite => 'Visit Website';
+
+  @override
+  String get ratings => 'Ratings';
+
+  @override
+  String get noProductsFound => 'No products found for this company';
+
+  @override
+  String get companies => 'Companies';
+
+  @override
+  String get rememberMe => 'Remember my info';
+
+  @override
+  String get helpContent =>
+      'Welcome to ProdEye! We help you make healthier food choices by scanning product barcodes.\n\nKey Features:\n- Scan Barcodes: Instantly get a health score and nutritional analysis.\n- Companies: Discover brands and their product lines.\n- Profile: Personalize your experience based on your health conditions and diet.\n\nFor further assistance, please contact support@prodeye.com.';
+
+  @override
+  String get termsContent =>
+      '1. Introduction\nWelcome to ProdEye. By using our app, you agree to these terms.\n\n2. Privacy\nWe value your privacy. Your health data is stored securely and used only to personalize your experience.\n\n3. Accuracy\nWhile we strive for accuracy, product formulations change. Always check the actual product label.\n\n4. Liability\nProdEye provides information for educational purposes only and not as a substitute for professional medical advice.';
+
+  @override
+  String get ratingHealth => 'Health';
+
+  @override
+  String get ratingTaste => 'Taste';
+
+  @override
+  String get ratingQuality => 'Quality';
+
+  @override
+  String get ratingPrice => 'Price';
 }

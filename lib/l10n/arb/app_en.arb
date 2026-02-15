@@ -125,5 +125,20 @@
   "completeProfile": "Complete Your Profile",
   "completeProfileDesc": "Add your health data for a personalized assessment",
   "productsScanned": "products scanned",
-  "yourHealth": "Your Health"
+  "yourHealth": "Your Health",
+  "noHistory": "No scan history yet",
+  "companyDetails": "Company Details",
+  "aboutCompany": "About Company",
+  "companyProducts": "Company Products",
+  "visitWebsite": "Visit Website",
+  "ratings": "Ratings",
+  "noProductsFound": "No products found for this company",
+  "companies": "Companies",
+  "rememberMe": "Remember my info",
+  "helpContent": "Welcome to ProdEye! We help you make healthier food choices by scanning product barcodes.\n\nKey Features:\n- Scan Barcodes: Instantly get a health score and nutritional analysis.\n- Companies: Discover brands and their product lines.\n- Profile: Personalize your experience based on your health conditions and diet.\n\nFor further assistance, please contact support@prodeye.com.",
+  "termsContent": "1. Introduction\nWelcome to ProdEye. By using our app, you agree to these terms.\n\n2. Privacy\nWe value your privacy. Your health data is stored securely and used only to personalize your experience.\n\n3. Accuracy\nWhile we strive for accuracy, product formulations change. Always check the actual product label.\n\n4. Liability\nProdEye provides information for educational purposes only and not as a substitute for professional medical advice.",
+  "ratingHealth": "Health",
+  "ratingTaste": "Taste",
+  "ratingQuality": "Quality",
+  "ratingPrice": "Price"
 }

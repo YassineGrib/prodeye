@@ -7,6 +7,8 @@ import '../../profile/data/profile_repository.dart';
 import '../models/product.dart';
 import '../models/health_score_result.dart';
 import '../data/health_score_engine.dart';
+import '../../favorites/data/favorites_repository.dart';
+import '../../favorites/models/favorite_item.dart';
 
 class ProductDetailsScreen extends ConsumerWidget {
   final Product product;
@@ -17,6 +19,7 @@ class ProductDetailsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final userProfileAsync = ref.watch(userProfileProvider);
+    final isFavoriteAsync = ref.watch(isFavoriteProvider(product.id));
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -72,14 +75,50 @@ class ProductDetailsScreen extends ConsumerWidget {
                             color: const Color(0xFFF0F2F5),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.favorite_border_rounded,
-                              size: 20,
+                          child: isFavoriteAsync.when(
+                            data: (isFavorite) => IconButton(
+                              icon: Icon(
+                                isFavorite
+                                    ? Icons.favorite_rounded
+                                    : Icons.favorite_border_rounded,
+                                size:
+                                    24, // Slightly larger for better touch target
+                                color: isFavorite
+                                    ? Colors.red
+                                    : Colors.grey.shade600,
+                              ),
+                              onPressed: () async {
+                                final repo = ref.read(
+                                  favoritesRepositoryProvider,
+                                );
+                                if (isFavorite) {
+                                  await repo.removeFromFavorites(product.id);
+                                } else {
+                                  await repo.addToFavorites(
+                                    FavoriteItem(
+                                      id: product.id,
+                                      name: product.name,
+                                      subtitle: product.brand,
+                                      barcode: product.barcode,
+                                      imageUrl: product.imageUrl,
+                                      companyId: product.companyId,
+                                      addedAt: DateTime.now(),
+                                    ),
+                                  );
+                                }
+                              },
                             ),
-                            onPressed: () {
-                              // TODO: Add to favorites
-                            },
+                            loading: () => const SizedBox(
+                              width: 40,
+                              height: 40,
+                              child: Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                            ),
+                            error: (_, __) => const Icon(Icons.error_outline),
                           ),
                         ),
                       ],
@@ -163,7 +202,7 @@ class ProductDetailsScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -176,7 +215,7 @@ class ProductDetailsScreen extends ConsumerWidget {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.08),
+              color: theme.colorScheme.primary.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(16),
             ),
             child: product.imageUrl != null
@@ -214,13 +253,43 @@ class ProductDetailsScreen extends ConsumerWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  product.brand,
-                  style: GoogleFonts.tajawal(
-                    fontSize: 13,
-                    color: Colors.grey.shade600,
+                if (product.companyId != null)
+                  InkWell(
+                    onTap: () {
+                      context.pushNamed(
+                        'company-details',
+                        pathParameters: {'id': product.companyId!},
+                      );
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          product.brand,
+                          style: GoogleFonts.tajawal(
+                            fontSize: 13,
+                            color: theme.colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 10,
+                          color: theme.colorScheme.primary,
+                        ),
+                      ],
+                    ),
+                  )
+                else
+                  Text(
+                    product.brand,
+                    style: GoogleFonts.tajawal(
+                      fontSize: 13,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
-                ),
                 const SizedBox(height: 6),
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -266,7 +335,7 @@ class ProductDetailsScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -329,9 +398,9 @@ class ProductDetailsScreen extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             decoration: BoxDecoration(
-              color: scoreColor.withOpacity(0.1),
+              color: scoreColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: scoreColor.withOpacity(0.3)),
+              border: Border.all(color: scoreColor.withValues(alpha: 0.3)),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -371,16 +440,16 @@ class ProductDetailsScreen extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.06),
+        color: color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withOpacity(0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.15),
+              color: color.withValues(alpha: 0.15),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -498,7 +567,7 @@ class ProductDetailsScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -550,8 +619,8 @@ class ProductDetailsScreen extends ConsumerWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  theme.colorScheme.primary.withOpacity(0.08),
-                  theme.colorScheme.primary.withOpacity(0.03),
+                  theme.colorScheme.primary.withValues(alpha: 0.08),
+                  theme.colorScheme.primary.withValues(alpha: 0.03),
                 ],
               ),
               borderRadius: BorderRadius.circular(14),
@@ -695,7 +764,7 @@ class ProductDetailsScreen extends ConsumerWidget {
               value: pct / 100,
               backgroundColor: Colors.grey.shade200,
               valueColor: AlwaysStoppedAnimation<Color>(
-                pct > 50 ? Colors.red.shade400 : color.withOpacity(0.7),
+                pct > 50 ? Colors.red.shade400 : color.withValues(alpha: 0.7),
               ),
               minHeight: 5,
             ),
@@ -753,7 +822,7 @@ class ProductDetailsScreen extends ConsumerWidget {
             ? null
             : [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
+                  color: Colors.black.withValues(alpha: 0.04),
                   blurRadius: 10,
                   offset: const Offset(0, 2),
                 ),
@@ -796,7 +865,7 @@ class ProductDetailsScreen extends ConsumerWidget {
                       item,
                       style: GoogleFonts.tajawal(
                         fontSize: 12,
-                        color: color.withOpacity(0.9),
+                        color: color.withValues(alpha: 0.9),
                       ),
                     ),
                   ),

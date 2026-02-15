@@ -375,4 +375,51 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get yourHealth => 'صحتك';
+
+  @override
+  String get noHistory => 'لا يوجد سجل مسح بعد';
+
+  @override
+  String get companyDetails => 'تفاصيل الشركة';
+
+  @override
+  String get aboutCompany => 'عن الشركة';
+
+  @override
+  String get companyProducts => 'منتجات الشركة';
+
+  @override
+  String get visitWebsite => 'زيارة الموقع';
+
+  @override
+  String get ratings => 'التقييمات';
+
+  @override
+  String get noProductsFound => 'لا توجد منتجات لهذه الشركة';
+
+  @override
+  String get companies => 'الشركات';
+
+  @override
+  String get rememberMe => 'تذكر معلوماتي';
+
+  @override
+  String get helpContent =>
+      'مرحباً بك في ProdEye! نساعدك على اتخاذ خيارات غذائية صحية من خلال مسح الباركود للمنتجات.\n\nالميزات الرئيسية:\n- مسح الباركود: احصل فوراً على درجة صحية وتحليل غذائي.\n- الشركات: اكتشف العلامات التجارية ومنتجاتها.\n- الملف الشخصي: خصص تجربتك بناءً على حالتك الصحية ونظامك الغذائي.\n\nللمزيد من المساعدة، يرجى التواصل مع support@prodeye.com.';
+
+  @override
+  String get termsContent =>
+      '1. مقدمة\nمرحباً بك في ProdEye. باستخدامك لتطبيقنا، فإنك توافق على هذه الشروط.\n\n2. الخصوصية\nنحن نقدر خصوصيتك. يتم تخزين بياناتك الصحية بشكل آمن وتستخدم فقط لتخصيص تجربتك.\n\n3. الدقة\nبينما نسعى للدقة، قد تتغير تركيبات المنتجات. تحقق دائماً من ملصق المنتج الفعلي.\n\n4. المسؤولية\nيوفر ProdEye معلومات للأغراض التعليمية فقط وليس بديلاً عن المشورة الطبية المهنية.';
+
+  @override
+  String get ratingHealth => 'الصحة';
+
+  @override
+  String get ratingTaste => 'المذاق';
+
+  @override
+  String get ratingQuality => 'الجودة';
+
+  @override
+  String get ratingPrice => 'السعر';
 }

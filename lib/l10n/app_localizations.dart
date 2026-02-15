@@ -829,6 +829,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your Health'**
   String get yourHealth;
+
+  /// No description provided for @noHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No scan history yet'**
+  String get noHistory;
+
+  /// No description provided for @companyDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Details'**
+  String get companyDetails;
+
+  /// No description provided for @aboutCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'About Company'**
+  String get aboutCompany;
+
+  /// No description provided for @companyProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Products'**
+  String get companyProducts;
+
+  /// No description provided for @visitWebsite.
+  ///
+  /// In en, this message translates to:
+  /// **'Visit Website'**
+  String get visitWebsite;
+
+  /// No description provided for @ratings.
+  ///
+  /// In en, this message translates to:
+  /// **'Ratings'**
+  String get ratings;
+
+  /// No description provided for @noProductsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No products found for this company'**
+  String get noProductsFound;
+
+  /// No description provided for @companies.
+  ///
+  /// In en, this message translates to:
+  /// **'Companies'**
+  String get companies;
+
+  /// No description provided for @rememberMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember my info'**
+  String get rememberMe;
+
+  /// No description provided for @helpContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to ProdEye! We help you make healthier food choices by scanning product barcodes.\n\nKey Features:\n- Scan Barcodes: Instantly get a health score and nutritional analysis.\n- Companies: Discover brands and their product lines.\n- Profile: Personalize your experience based on your health conditions and diet.\n\nFor further assistance, please contact support@prodeye.com.'**
+  String get helpContent;
+
+  /// No description provided for @termsContent.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Introduction\nWelcome to ProdEye. By using our app, you agree to these terms.\n\n2. Privacy\nWe value your privacy. Your health data is stored securely and used only to personalize your experience.\n\n3. Accuracy\nWhile we strive for accuracy, product formulations change. Always check the actual product label.\n\n4. Liability\nProdEye provides information for educational purposes only and not as a substitute for professional medical advice.'**
+  String get termsContent;
+
+  /// No description provided for @ratingHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get ratingHealth;
+
+  /// No description provided for @ratingTaste.
+  ///
+  /// In en, this message translates to:
+  /// **'Taste'**
+  String get ratingTaste;
+
+  /// No description provided for @ratingQuality.
+  ///
+  /// In en, this message translates to:
+  /// **'Quality'**
+  String get ratingQuality;
+
+  /// No description provided for @ratingPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get ratingPrice;
 }
 
 class _AppLocalizationsDelegate

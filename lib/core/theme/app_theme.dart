@@ -14,7 +14,6 @@ class AppTheme {
       secondary: AppColors.secondary,
       onSecondary: Colors.white,
       error: AppColors.error,
-      background: AppColors.backgroundLight,
       surface: AppColors.surfaceLight,
       onSurface: AppColors.textPrimaryLight,
       outline: AppColors.borderLight,
@@ -22,27 +21,27 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.backgroundLight,
 
     // Typography
-    textTheme: GoogleFonts.cairoTextTheme().copyWith(
-      displayLarge: GoogleFonts.cairo(
+    textTheme: GoogleFonts.tajawalTextTheme().copyWith(
+      displayLarge: GoogleFonts.tajawal(
         fontSize: 32,
         fontWeight: FontWeight.bold,
         color: AppColors.textPrimaryLight,
       ),
-      headlineMedium: GoogleFonts.cairo(
+      headlineMedium: GoogleFonts.tajawal(
         fontSize: 24,
         fontWeight: FontWeight.w600,
         color: AppColors.textPrimaryLight,
       ),
-      titleLarge: GoogleFonts.cairo(
+      titleLarge: GoogleFonts.tajawal(
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: AppColors.textPrimaryLight,
       ),
-      bodyLarge: GoogleFonts.cairo(
+      bodyLarge: GoogleFonts.tajawal(
         fontSize: 16,
         color: AppColors.textPrimaryLight,
       ),
-      bodyMedium: GoogleFonts.cairo(
+      bodyMedium: GoogleFonts.tajawal(
         fontSize: 14,
         color: AppColors.textSecondaryLight,
       ),
@@ -95,14 +94,17 @@ class AppTheme {
         backgroundColor: AppColors.primary,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16),
+        textStyle: GoogleFonts.tajawal(
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
         elevation: 0,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: AppColors.primary,
-        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.w600),
+        textStyle: GoogleFonts.tajawal(fontWeight: FontWeight.w600),
       ),
     ),
   );
@@ -117,7 +119,6 @@ class AppTheme {
       primary: AppColors.primary, // Keep primary distinct in dark mode
       onPrimary: Colors.white,
       secondary: AppColors.secondary,
-      background: AppColors.backgroundDark,
       surface: AppColors.surfaceDark,
       onSurface: AppColors.textPrimaryDark,
       outline: AppColors.borderDark,
@@ -125,31 +126,32 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.backgroundDark,
 
     // Typography Dark
-    textTheme: GoogleFonts.cairoTextTheme(ThemeData.dark().textTheme).copyWith(
-      displayLarge: GoogleFonts.cairo(
-        fontSize: 32,
-        fontWeight: FontWeight.bold,
-        color: AppColors.textPrimaryDark,
-      ),
-      headlineMedium: GoogleFonts.cairo(
-        fontSize: 24,
-        fontWeight: FontWeight.w600,
-        color: AppColors.textPrimaryDark,
-      ),
-      titleLarge: GoogleFonts.cairo(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: AppColors.textPrimaryDark,
-      ),
-      bodyLarge: GoogleFonts.cairo(
-        fontSize: 16,
-        color: AppColors.textPrimaryDark,
-      ),
-      bodyMedium: GoogleFonts.cairo(
-        fontSize: 14,
-        color: AppColors.textSecondaryDark,
-      ),
-    ),
+    textTheme: GoogleFonts.tajawalTextTheme(ThemeData.dark().textTheme)
+        .copyWith(
+          displayLarge: GoogleFonts.tajawal(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: AppColors.textPrimaryDark,
+          ),
+          headlineMedium: GoogleFonts.tajawal(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: AppColors.textPrimaryDark,
+          ),
+          titleLarge: GoogleFonts.tajawal(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: AppColors.textPrimaryDark,
+          ),
+          bodyLarge: GoogleFonts.tajawal(
+            fontSize: 16,
+            color: AppColors.textPrimaryDark,
+          ),
+          bodyMedium: GoogleFonts.tajawal(
+            fontSize: 14,
+            color: AppColors.textSecondaryDark,
+          ),
+        ),
 
     // Card Theme Dark
     cardTheme: CardThemeData(
@@ -198,14 +200,17 @@ class AppTheme {
         backgroundColor: AppColors.primary,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16),
+        textStyle: GoogleFonts.tajawal(
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
         elevation: 0,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: AppColors.primary, // Brand color stands out on dark
-        textStyle: GoogleFonts.cairo(fontWeight: FontWeight.w600),
+        textStyle: GoogleFonts.tajawal(fontWeight: FontWeight.w600),
       ),
     ),
   );
