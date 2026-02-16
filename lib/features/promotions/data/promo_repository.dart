@@ -6,14 +6,14 @@ final promoRepositoryProvider = Provider<PromoRepository>((ref) {
   return PromoRepository(firestore: FirebaseFirestore.instance);
 });
 
-/// Provider for active promo ads (client-facing)
-final activePromosProvider = FutureProvider<List<PromoAd>>((ref) {
-  return ref.watch(promoRepositoryProvider).getActivePromos();
+/// Provider for active promo ads (client-facing) - usage of StreamProvider for real-time updates
+final activePromosProvider = StreamProvider<List<PromoAd>>((ref) {
+  return ref.watch(promoRepositoryProvider).getActivePromosStream();
 });
 
-/// Provider for all promos (admin-facing)
-final allPromosProvider = FutureProvider<List<PromoAd>>((ref) {
-  return ref.watch(promoRepositoryProvider).getAllPromos();
+/// Provider for all promos (admin-facing) - usage of StreamProvider for real-time updates
+final allPromosProvider = StreamProvider<List<PromoAd>>((ref) {
+  return ref.watch(promoRepositoryProvider).getAllPromosStream();
 });
 
 class PromoRepository {
@@ -25,28 +25,32 @@ class PromoRepository {
   CollectionReference get _collection => _firestore.collection('promos');
 
   /// Get only active promos within their date range, ordered by [order]
-  Future<List<PromoAd>> getActivePromos() async {
-    final snapshot = await _collection
+  Stream<List<PromoAd>> getActivePromosStream() {
+    return _collection
         .where('isActive', isEqualTo: true)
         .orderBy('order')
-        .get();
-
-    return snapshot.docs
-        .map(
-          (doc) => PromoAd.fromMap(doc.id, doc.data() as Map<String, dynamic>),
-        )
-        .where((ad) => ad.isCurrentlyActive)
-        .toList();
+        .snapshots()
+        .map((snapshot) {
+          return snapshot.docs
+              .map(
+                (doc) =>
+                    PromoAd.fromMap(doc.id, doc.data() as Map<String, dynamic>),
+              )
+              .where((ad) => ad.isCurrentlyActive)
+              .toList();
+        });
   }
 
   /// Get all promos (for admin)
-  Future<List<PromoAd>> getAllPromos() async {
-    final snapshot = await _collection.orderBy('order').get();
-    return snapshot.docs
-        .map(
-          (doc) => PromoAd.fromMap(doc.id, doc.data() as Map<String, dynamic>),
-        )
-        .toList();
+  Stream<List<PromoAd>> getAllPromosStream() {
+    return _collection.orderBy('order').snapshots().map((snapshot) {
+      return snapshot.docs
+          .map(
+            (doc) =>
+                PromoAd.fromMap(doc.id, doc.data() as Map<String, dynamic>),
+          )
+          .toList();
+    });
   }
 
   /// Create a new promo

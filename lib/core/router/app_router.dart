@@ -24,6 +24,7 @@ import '../../features/profile/presentation/profile_setup_screen.dart';
 import '../../features/admin/presentation/admin_dashboard_screen.dart';
 import '../../features/admin/presentation/admin_users_screen.dart';
 import '../../features/admin/presentation/admin_products_screen.dart';
+import '../../features/admin/presentation/admin_promos_screen.dart';
 import '../../features/admin/presentation/admin_product_form_screen.dart';
 import '../../features/admin/presentation/admin_companies_screen.dart';
 import '../../features/admin/presentation/admin_company_form_screen.dart';
@@ -180,6 +181,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           final company = state.extra as Company?;
           return AdminCompanyFormScreen(company: company);
         },
+      ),
+      GoRoute(
+        path: '/admin/promos',
+        name: 'admin-promos',
+        builder: (context, state) => const AdminPromosScreen(),
       ),
     ],
   );
