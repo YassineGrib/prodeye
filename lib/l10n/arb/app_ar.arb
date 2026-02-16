@@ -140,5 +140,6 @@
   "ratingHealth": "الصحة",
   "ratingTaste": "المذاق",
   "ratingQuality": "الجودة",
-  "ratingPrice": "السعر"
+  "ratingPrice": "السعر",
+  "skip": "تخطي"
 }

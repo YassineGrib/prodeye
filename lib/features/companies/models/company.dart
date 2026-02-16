@@ -9,6 +9,8 @@ class Company {
   final String descriptionAr;
   final String? website;
   final String? location;
+  final String? email;
+  final String? phone;
   final Map<String, double> ratings; // e.g., {'health': 4.5, 'quality': 4.0}
 
   const Company({
@@ -20,8 +22,16 @@ class Company {
     required this.descriptionAr,
     this.website,
     this.location,
+    this.email,
+    this.phone,
     this.ratings = const {},
   });
+
+  /// Overall average rating from all categories
+  double get overallRating {
+    if (ratings.isEmpty) return 0;
+    return ratings.values.reduce((a, b) => a + b) / ratings.length;
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -32,6 +42,8 @@ class Company {
       'descriptionAr': descriptionAr,
       'website': website,
       'location': location,
+      'email': email,
+      'phone': phone,
       'ratings': ratings,
     };
   }
@@ -47,6 +59,8 @@ class Company {
       descriptionAr: data['descriptionAr'] as String? ?? '',
       website: data['website'] as String?,
       location: data['location'] as String?,
+      email: data['email'] as String?,
+      phone: data['phone'] as String?,
       ratings:
           (data['ratings'] as Map<String, dynamic>?)?.map(
             (k, v) => MapEntry(k, (v as num).toDouble()),

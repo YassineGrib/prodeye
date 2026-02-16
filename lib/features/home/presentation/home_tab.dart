@@ -7,6 +7,7 @@ import '../../../core/constants/app_constants.dart';
 import '../../profile/data/profile_repository.dart';
 import '../../history/data/history_repository.dart';
 import '../../history/models/scan_history_item.dart';
+import '../../promotions/presentation/pub_zone_section.dart';
 
 class HomeTab extends ConsumerWidget {
   const HomeTab({super.key});
@@ -37,6 +38,9 @@ class HomeTab extends ConsumerWidget {
 
           // ── 3. Quick Actions Row (compact icons) ──
           SliverToBoxAdapter(child: _QuickActionsRow(l10n: l10n)),
+
+          // ── 3.5. Pub Zone (promotions carousel) ──
+          const SliverToBoxAdapter(child: PubZoneSection()),
 
           // ── 4. Complete Profile Banner (conditional) ──
           SliverToBoxAdapter(

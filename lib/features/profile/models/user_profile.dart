@@ -14,6 +14,7 @@ class UserProfile {
   final List<HealthCondition> healthConditions;
   final Lifestyle lifestyle;
   final DietType dietType;
+  final String role; // 'user' or 'admin'
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -28,15 +29,19 @@ class UserProfile {
     this.healthConditions = const [],
     this.lifestyle = Lifestyle.sedentary,
     this.dietType = DietType.balanced,
+    this.role = 'user',
     this.createdAt,
     this.updatedAt,
   });
+
+  bool get isAdmin => role == 'admin';
 
   // Create an empty profile for a new user
   factory UserProfile.empty({required String uid, required String email}) {
     return UserProfile(
       uid: uid,
       email: email,
+      role: 'user',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
@@ -51,6 +56,7 @@ class UserProfile {
     List<HealthCondition>? healthConditions,
     Lifestyle? lifestyle,
     DietType? dietType,
+    String? role,
     DateTime? updatedAt,
   }) {
     return UserProfile(
@@ -64,6 +70,7 @@ class UserProfile {
       healthConditions: healthConditions ?? this.healthConditions,
       lifestyle: lifestyle ?? this.lifestyle,
       dietType: dietType ?? this.dietType,
+      role: role ?? this.role,
       createdAt: createdAt,
       updatedAt: updatedAt ?? DateTime.now(),
     );
@@ -81,6 +88,7 @@ class UserProfile {
       'healthConditions': healthConditions.map((e) => e.name).toList(),
       'lifestyle': lifestyle.name,
       'dietType': dietType.name,
+      'role': role,
       'createdAt': createdAt != null ? Timestamp.fromDate(createdAt!) : null,
       'updatedAt': updatedAt != null
           ? Timestamp.fromDate(updatedAt!)
@@ -106,6 +114,7 @@ class UserProfile {
         map['lifestyle'] as String? ?? '',
       ),
       dietType: DietTypeExtension.fromString(map['dietType'] as String? ?? ''),
+      role: map['role'] as String? ?? 'user',
       createdAt: (map['createdAt'] as Timestamp?)?.toDate(),
       updatedAt: (map['updatedAt'] as Timestamp?)?.toDate(),
     );

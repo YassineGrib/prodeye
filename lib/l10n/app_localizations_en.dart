@@ -424,4 +424,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ratingPrice => 'Price';
+
+  @override
+  String get skip => 'Skip';
 }

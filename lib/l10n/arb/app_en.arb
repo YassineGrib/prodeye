@@ -140,5 +140,6 @@
   "ratingHealth": "Health",
   "ratingTaste": "Taste",
   "ratingQuality": "Quality",
-  "ratingPrice": "Price"
+  "ratingPrice": "Price",
+  "skip": "Skip"
 }

@@ -19,6 +19,15 @@ import '../../features/settings/presentation/help_support_screen.dart';
 import '../../features/settings/presentation/terms_conditions_screen.dart';
 import '../../features/favorites/presentation/favorites_screen.dart';
 import '../../features/search/presentation/search_screen.dart';
+import '../../features/profile/presentation/profile_setup_screen.dart';
+// Admin screens
+import '../../features/admin/presentation/admin_dashboard_screen.dart';
+import '../../features/admin/presentation/admin_users_screen.dart';
+import '../../features/admin/presentation/admin_products_screen.dart';
+import '../../features/admin/presentation/admin_product_form_screen.dart';
+import '../../features/admin/presentation/admin_companies_screen.dart';
+import '../../features/admin/presentation/admin_company_form_screen.dart';
+import '../../features/companies/models/company.dart';
 
 // Keys for Navigation
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -59,8 +68,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/profile-setup',
         name: 'profile-setup',
-        builder: (context, state) =>
-            const Scaffold(body: Center(child: Text('Profile Setup TODO'))),
+        builder: (context, state) => const ProfileSetupScreen(),
       ),
       GoRoute(
         path: '/profile/edit',
@@ -134,6 +142,44 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: '/search',
         name: 'search',
         builder: (context, state) => const SearchScreen(),
+      ),
+
+      // ── Admin Routes ──
+      GoRoute(
+        path: '/admin',
+        name: 'admin-dashboard',
+        builder: (context, state) => const AdminDashboardScreen(),
+      ),
+      GoRoute(
+        path: '/admin/users',
+        name: 'admin-users',
+        builder: (context, state) => const AdminUsersScreen(),
+      ),
+      GoRoute(
+        path: '/admin/products',
+        name: 'admin-products',
+        builder: (context, state) => const AdminProductsScreen(),
+      ),
+      GoRoute(
+        path: '/admin/products/form',
+        name: 'admin-product-form',
+        builder: (context, state) {
+          final product = state.extra as Product?;
+          return AdminProductFormScreen(product: product);
+        },
+      ),
+      GoRoute(
+        path: '/admin/companies',
+        name: 'admin-companies',
+        builder: (context, state) => const AdminCompaniesScreen(),
+      ),
+      GoRoute(
+        path: '/admin/companies/form',
+        name: 'admin-company-form',
+        builder: (context, state) {
+          final company = state.extra as Company?;
+          return AdminCompanyFormScreen(company: company);
+        },
       ),
     ],
   );

@@ -51,11 +51,20 @@ class ProductRepository {
     await _productsCollection.doc(product.barcode).set(product.toMap());
   }
 
+  /// Update an existing product
+  Future<void> updateProduct(Product product) async {
+    await _productsCollection.doc(product.barcode).update(product.toMap());
+  }
+
+  /// Delete a product by barcode
+  Future<void> deleteProduct(String barcode) async {
+    await _productsCollection.doc(barcode).delete();
+  }
+
   /// Search products by name
   Future<List<Product>> searchProducts(String query, {int limit = 20}) async {
     if (query.isEmpty) return [];
 
-    // Search in both English and Arabic names
     final results = await _productsCollection
         .orderBy('name')
         .startAt([query])
@@ -83,5 +92,17 @@ class ProductRepository {
         .get();
 
     return results.docs.map((doc) => Product.fromFirestore(doc)).toList();
+  }
+
+  /// Get all products (for admin)
+  Future<List<Product>> getAllProducts() async {
+    final results = await _productsCollection.get();
+    return results.docs.map((doc) => Product.fromFirestore(doc)).toList();
+  }
+
+  /// Get total product count
+  Future<int> getProductCount() async {
+    final snapshot = await _productsCollection.count().get();
+    return snapshot.count ?? 0;
   }
 }

@@ -7,6 +7,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../data/company_repository.dart';
 import '../models/company.dart';
 import '../../../../core/utils/company_seeder.dart';
+import '../../product/data/seed_products.dart';
 
 final companiesListProvider = FutureProvider<List<Company>>((ref) async {
   return ref.watch(companyRepositoryProvider).getAllCompanies();
@@ -120,7 +121,7 @@ class _CompaniesListScreenState extends ConsumerState<CompaniesListScreen> {
           ? FloatingActionButton(
               onPressed: () async {
                 try {
-                  await _seedCompanies(context);
+                  await _seedDatabase(context);
                 } catch (e) {
                   ScaffoldMessenger.of(
                     context,
@@ -128,18 +129,23 @@ class _CompaniesListScreenState extends ConsumerState<CompaniesListScreen> {
                 }
               },
               child: const Icon(Icons.cloud_upload),
-              tooltip: 'Seed Companies (Dev)',
+              tooltip: 'Seed Database (Dev)',
             )
           : null,
     );
   }
 
-  Future<void> _seedCompanies(BuildContext context) async {
+  Future<void> _seedDatabase(BuildContext context) async {
+    // Seed companies
     final seeder = CompanySeeder();
     await seeder.seedCompanies();
+    // Seed products
+    await SeedProducts.seedAll();
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Companies seeded successfully!')),
+        const SnackBar(
+          content: Text('✅ Companies & Products seeded successfully!'),
+        ),
       );
       // Refresh the list
       ref.invalidate(companiesListProvider);

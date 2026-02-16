@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../../core/constants/app_constants.dart';
+import '../../../core/services/auth_service.dart';
 
 import '../../../l10n/app_localizations.dart';
 
@@ -85,7 +86,20 @@ class _LoginScreenState extends State<LoginScreen> {
           debugPrint('Error saving credentials (non-fatal): $e');
         }
 
-        if (mounted) context.goNamed('home');
+        // Ensure Firestore user doc exists (handles Auth-only accounts)
+        final authService = AuthService();
+        await authService.ensureUserDocExists();
+
+        // Check user role for routing
+        final role = await authService.getCurrentUserRole();
+
+        if (mounted) {
+          if (role == 'admin') {
+            context.goNamed('admin-dashboard');
+          } else {
+            context.goNamed('home');
+          }
+        }
       } on FirebaseAuthException catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

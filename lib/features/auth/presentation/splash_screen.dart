@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
-
-// Ensure correct import
+import '../../../core/services/auth_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -67,9 +67,22 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    // Navigate to Login after delay + buffer
-    Future.delayed(const Duration(seconds: 4), () {
-      if (mounted) {
+    // Navigate based on auth state + role after delay
+    Future.delayed(const Duration(seconds: 4), () async {
+      if (!mounted) return;
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        // User is already logged in — ensure doc exists & route by role
+        final authService = AuthService();
+        await authService.ensureUserDocExists();
+        final role = await authService.getCurrentUserRole();
+        if (!mounted) return;
+        if (role == 'admin') {
+          context.goNamed('admin-dashboard');
+        } else {
+          context.goNamed('home');
+        }
+      } else {
         context.goNamed('login');
       }
     });

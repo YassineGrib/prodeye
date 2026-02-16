@@ -422,4 +422,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get ratingPrice => 'السعر';
+
+  @override
+  String get skip => 'تخطي';
 }

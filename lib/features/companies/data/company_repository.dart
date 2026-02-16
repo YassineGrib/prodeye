@@ -25,12 +25,25 @@ class CompanyRepository {
     return null;
   }
 
+  /// Add a new company
+  Future<void> addCompany(String id, Company company) async {
+    await _companiesCollection.doc(id).set(company.toMap());
+  }
+
+  /// Update an existing company
+  Future<void> updateCompany(Company company) async {
+    await _companiesCollection.doc(company.id).update(company.toMap());
+  }
+
+  /// Delete a company by ID
+  Future<void> deleteCompany(String id) async {
+    await _companiesCollection.doc(id).delete();
+  }
+
   /// Search companies by name
   Future<List<Company>> searchCompanies(String query, {int limit = 10}) async {
     if (query.isEmpty) return [];
 
-    // Search in name (simple startAt/endAt search)
-    // For production, Algolia or Typesense is recommended for fuzzy search
     final results = await _companiesCollection
         .orderBy('name')
         .startAt([query])
@@ -41,8 +54,14 @@ class CompanyRepository {
   }
 
   /// Get all companies (paginated)
-  Future<List<Company>> getAllCompanies({int limit = 20}) async {
+  Future<List<Company>> getAllCompanies({int limit = 50}) async {
     final results = await _companiesCollection.limit(limit).get();
     return results.docs.map((doc) => Company.fromFirestore(doc)).toList();
+  }
+
+  /// Get total company count
+  Future<int> getCompanyCount() async {
+    final snapshot = await _companiesCollection.count().get();
+    return snapshot.count ?? 0;
   }
 }
